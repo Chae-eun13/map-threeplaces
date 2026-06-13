@@ -63,11 +63,29 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
-  // 장소별 좌표 및 아이콘
+  // 장소별 좌표, 아이콘, 소개, 홈페이지
   const places = {
-    airport: { name: "제주국제공항", lat: 33.5066, lng: 126.4930, icon: "✈️", iconClass: "airport" },
-    jchs: { name: "제주중앙여자고등학교", lat: 33.5009, lng: 126.5235, icon: "🏫", iconClass: "jchs" },
-    jnu: { name: "제주대학교", lat: 33.4585, lng: 126.5602, icon: "🎓", iconClass: "jnu" }
+    airport: {
+      name: "제주국제공항",
+      lat: 33.5066, lng: 126.4930,
+      icon: "✈️", iconClass: "airport",
+      desc: "제주특별자치도의 관문이 되는 국내 최대 규모의 공항으로, 국내선과 국제선 노선을 운항한다.",
+      url: "https://www.airport.co.kr/jeju/index.do"
+    },
+    jchs: {
+      name: "제주중앙여자고등학교",
+      lat: 33.5009, lng: 126.5235,
+      icon: "🏫", iconClass: "jchs",
+      desc: "제주시 이도2동에 위치한 공립 여자고등학교로, 1980년에 개교하였다.",
+      url: "https://school.jje.go.kr/jungang-h/main.do"
+    },
+    jnu: {
+      name: "제주대학교",
+      lat: 33.4585, lng: 126.5602,
+      icon: "🎓", iconClass: "jnu",
+      desc: "제주특별자치도를 대표하는 국립 종합대학교로, 다양한 단과대학과 연구 기관을 운영하고 있다.",
+      url: "https://www.jejunu.ac.kr"
+    }
   };
 
   // 지도 초기화 (세 지점의 중간쯩 위치 기준)
@@ -91,7 +109,13 @@
     });
     markers[key] = L.marker([p.lat, p.lng], { icon: customIcon })
       .addTo(map)
-      .bindPopup(`<b>${p.icon} ${p.name}</b>`);
+      .bindPopup(`
+        <div style="min-width: 180px;">
+          <b>${p.icon} ${p.name}</b>
+          <p style="margin: 6px 0; font-size: 13px; line-height: 1.5;">${p.desc}</p>
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" style="font-size: 13px; color: #2563eb;">홈페이지 바로가기 →</a>
+        </div>
+      `);
   }
 
   // 두 지점 간 거리 계산 (Haversine, km)
